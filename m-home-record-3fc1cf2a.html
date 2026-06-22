@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>再次遇见 · c7娱乐</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(145deg, #fce7d3 0%, #f9d9c1 40%, #f7d0b0 100%);
+            min-height: 100vh;
+            padding: 1.5rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #3d2c1f;
+        }
+
+        .page-wrap {
+            max-width: 1080px;
+            width: 100%;
+        }
+
+        /* 顶部导航 */
+        .top-nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 245, 235, 0.7);
+            backdrop-filter: blur(8px);
+            border-radius: 48px;
+            padding: 0.85rem 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 8px 20px rgba(150, 90, 60, 0.08);
+            border: 1px solid rgba(255, 220, 195, 0.5);
+        }
+
+        .logo-area {
+            font-weight: 500;
+            font-size: 1.2rem;
+            letter-spacing: 0.5px;
+            color: #6a3e28;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .logo-area span {
+            background: #dba885;
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 6px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.8rem;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #5a3a28;
+            padding: 0.3rem 0;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.2s;
+        }
+
+        .nav-links a:hover {
+            border-bottom-color: #b47b5a;
+        }
+
+        /* hero */
+        .hero {
+            background: rgba(255, 250, 245, 0.6);
+            backdrop-filter: blur(4px);
+            border-radius: 40px;
+            padding: 3.5rem 3rem;
+            margin-bottom: 2.8rem;
+            border: 1px solid rgba(255, 215, 185, 0.4);
+            box-shadow: 0 12px 28px rgba(130, 80, 50, 0.06);
+        }
+
+        .badge {
+            display: inline-block;
+            background: #eac8b0;
+            color: #4a2e1c;
+            font-size: 0.75rem;
+            padding: 0.25rem 1rem;
+            border-radius: 100px;
+            letter-spacing: 0.3px;
+            margin-bottom: 1.2rem;
+        }
+
+        .hero h1 {
+            font-size: 2.6rem;
+            font-weight: 500;
+            line-height: 1.2;
+            margin-bottom: 1.2rem;
+            color: #2f1f12;
+        }
+
+        .hero h1 i {
+            font-style: normal;
+            background: linear-gradient(135deg, #a86f4a, #7f5237);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            max-width: 680px;
+            line-height: 1.6;
+            color: #4b3627;
+            margin-bottom: 1.8rem;
+        }
+
+        .hero-extra {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .bookmark-note {
+            background: rgba(220, 180, 150, 0.2);
+            padding: 0.5rem 1.4rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            border: 1px dashed #c99d7c;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .bookmark-note svg {
+            width: 18px;
+            height: 18px;
+            fill: #8a6248;
+        }
+
+        /* 三个场景模块（卡片网格） */
+        .scene-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.8rem;
+            margin-bottom: 3rem;
+        }
+
+        .scene-card {
+            background: #fffcf8;
+            border-radius: 28px;
+            padding: 2rem 1.6rem;
+            border: 1px solid #f1ddd0;
+            box-shadow: 0 6px 16px rgba(140, 90, 60, 0.06);
+            transition: transform 0.2s ease, box-shadow 0.2s;
+        }
+
+        .scene-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(140, 90, 60, 0.10);
+        }
+
+        .scene-card .icon {
+            font-size: 2rem;
+            margin-bottom: 0.4rem;
+            display: inline-block;
+        }
+
+        .scene-card h3 {
+            font-size: 1.4rem;
+            font-weight: 500;
+            margin-bottom: 0.6rem;
+            color: #3a271b;
+        }
+
+        .scene-card p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #4f3b2b;
+            margin-bottom: 1.2rem;
+        }
+
+        .scene-card .tag {
+            font-size: 0.8rem;
+            padding: 0.2rem 0.8rem;
+            border-radius: 100px;
+            background: #ead5c4;
+            color: #4e3423;
+            display: inline-block;
+        }
+
+        /* 常见说明 (FAQ 摘要) */
+        .faq-section {
+            background: rgba(255, 248, 242, 0.6);
+            backdrop-filter: blur(4px);
+            border-radius: 32px;
+            padding: 2.5rem 2.8rem;
+            margin-bottom: 2.5rem;
+            border: 1px solid rgba(235, 200, 175, 0.3);
+        }
+
+        .faq-section h2 {
+            font-weight: 450;
+            font-size: 1.8rem;
+            margin-bottom: 1.8rem;
+            color: #2f1f12;
+        }
+
+        .faq-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #ecd9cb;
+        }
+
+        .faq-item:last-of-type {
+            border-bottom: none;
+        }
+
+        .faq-q {
+            font-weight: 500;
+            color: #3a271b;
+            display: flex;
+            gap: 0.6rem;
+            align-items: baseline;
+        }
+
+        .faq-q::before {
+            content: "▸";
+            color: #b57d5c;
+        }
+
+        .faq-a {
+            padding-left: 1.6rem;
+            color: #4f3b2b;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* 提示 / 再次访问收藏 callout */
+        .reminder-box {
+            background: #fcf3ea;
+            border-radius: 60px;
+            padding: 1.6rem 2.2rem;
+            margin-bottom: 2.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1.2rem;
+            border: 1px solid #e6cdbb;
+        }
+
+        .reminder-box p {
+            font-size: 1rem;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .reminder-box .btn-like {
+            background: #dbb99a;
+            color: #2f1f12;
+            padding: 0.6rem 1.8rem;
+            border-radius: 60px;
+            text-decoration: none;
+            font-weight: 450;
+            border: 1px solid #c9a481;
+            transition: background 0.2s, box-shadow 0.2s;
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        .reminder-box .btn-like:hover {
+            background: #cfaa87;
+            box-shadow: 0 4px 12px rgba(170, 120, 80, 0.15);
+        }
+
+        /* 页脚 */
+        .footer-note {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #6a4f3b;
+            border-top: 1px solid #ebd3c2;
+            padding: 2rem 0 0.5rem 0;
+            margin-top: 1rem;
+        }
+
+        .footer-note a {
+            color: #4e3423;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        /* 响应式 */
+        @media (max-width: 800px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .scene-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 1.4rem;
+            }
+
+            .top-nav {
+                padding: 0.7rem 1.2rem;
+                flex-direction: column;
+                gap: 0.8rem;
+                align-items: stretch;
+            }
+
+            .nav-links {
+                justify-content: center;
+                gap: 1.2rem;
+                flex-wrap: wrap;
+            }
+
+            .hero {
+                padding: 2rem 1.5rem;
+            }
+
+            .faq-section {
+                padding: 1.8rem 1.5rem;
+            }
+
+            .reminder-box {
+                flex-direction: column;
+                align-items: flex-start;
+                border-radius: 40px;
+                padding: 1.4rem 1.6rem;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .scene-grid {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+
+            .hero h1 {
+                font-size: 1.7rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .bookmark-note {
+                font-size: 0.8rem;
+                padding: 0.4rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page-wrap">
+    <!-- 顶部导航 -->
+    <nav class="top-nav">
+        <div class="logo-area">
+            <span></span> 再次 · 收藏夹
+        </div>
+        <div class="nav-links">
+            <a href="#scenes">场景</a>
+            <a href="#faq">说明</a>
+            <a href="#remind">提醒</a>
+        </div>
+    </nav>
+
+    <!-- hero 区域 -->
+    <section class="hero">
+        <span class="badge">✦ 常回来看看</span>
+        <h1>你收藏的 <i>c7娱乐</i> 还在老地方</h1>
+        <p>
+            有时候我们随手收藏一个站点，隔几周就忘了它藏在哪个文件夹里。<br>
+            其实不必翻找，<strong>再次访问</strong> 就是最好的重逢。这里有你不经意间记下的角落，
+            也有你打算慢慢熟悉的内容——只要记得把 <a href="https://m-home-c7entertainment.com" style="color:#6a3e28;text-decoration:underline;font-weight:450;">c7娱乐</a> 留在浏览器书签里，
+            下次回来依旧自然顺手。
+        </p>
+        <div class="hero-extra">
+            <span class="bookmark-note">
+                <svg viewBox="0 0 24 24" width="18" height="18"><path d="M17 3H7a2 2 0 0 0-2 2v16l7-3 7 3V5a2 2 0 0 0-2-2z"/></svg>
+                添加到书签 · 随时回访
+            </span>
+            <span style="font-size:0.85rem; color:#6b4c38;">场景导航 ▼</span>
+        </div>
+    </section>
+
+    <!-- 三个场景模块 (卡片) -->
+    <section class="scene-grid" id="scenes">
+        <div class="scene-card">
+            <span class="icon">📌</span>
+            <h3>收藏即承诺</h3>
+            <p>
+                把网页存入书签或是笔记，等于对自己说“我还会再来的”。<br>
+                那些存了却没再看的页面，不如趁着今天的间隙重新打开。
+            </p>
+            <span class="tag">再次访问</span>
+        </div>
+        <div class="scene-card">
+            <span class="icon">☕</span>
+            <h3>日常停留</h3>
+            <p>
+                午休前、通勤路上、睡前几分钟…… 轻量级的浏览不需要太多计划。
+                一个顺手就能打开的站点，往往才是真正会被持续关注的。
+            </p>
+            <span class="tag">随手看看</span>
+        </div>
+        <div class="scene-card">
+            <span class="icon">🗂️</span>
+            <h3>熟悉的角落</h3>
+            <p>
+                有些页面不需要天天去，但每隔一阵子就会想去翻翻。
+                保持收藏整洁、偶尔回顾，比到处找新地方更省心。
+            </p>
+            <span class="tag">常回站</span>
+        </div>
+    </section>
+
+    <!-- 常见说明 (FAQ 摘要) -->
+    <section class="faq-section" id="faq">
+        <h2>常见小问题 · 摘要</h2>
+        <div class="faq-item">
+            <div class="faq-q">为什么再次访问比收藏新站点更重要？</div>
+            <div class="faq-a">因为大多数收藏夹里都沉睡着不少好内容。定期回头翻一翻，比不断添加新链接更能积累熟悉感。</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q">如何让收藏夹不变得杂乱？</div>
+            <div class="faq-a">每隔几周清理一次，把不再需要的移除，把还想再看的归类。比如把 <a href="https://m-home-c7entertainment.com">c7娱乐</a> 放在一个常用文件夹或浏览器书签栏，下次访问不用翻页。</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q">持续关注 = 每天登录吗？</div>
+            <div class="faq-a">不一定。持续关注更像是“我知道它在哪，我想起来时会去浏览”。保持轻松的节奏，反而更持久。</div>
+        </div>
+    </section>
+
+    <!-- 提示区域 (再次访问 & 收藏提醒) -->
+    <div class="reminder-box" id="remind">
+        <p>
+            🔖 如果你曾把 <strong>c7娱乐</strong> 加入书签却好久没打开，现在就是个不错的 revisit 时刻。
+            收藏不是终点，再次访问才是。
+        </p>
+        <a href="https://m-home-c7entertainment.com" class="btn-like">c7娱乐</a>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer-note">
+        <span>随时可以回到这里 · 收藏夹里的老朋友</span><br>
+        <span style="font-size:0.8rem;">页面内容仅供示意 · 无诱导意图</span>
+    </footer>
+</div>
+</body>
+</html>
